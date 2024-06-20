@@ -7,15 +7,22 @@ const options: ToastOptions = {
 
 window.Toast = {
 
-  success(message) {
+  success(message, options) {
+    if (window.Pengu.silentMode)
+      return console.warn(`Suppressed following message since slient mode is on: ${message}`);
     toast.success(message, options);
   },
 
-  error(message) {
+  error(message, options) {
+    if (window.Pengu.silentMode)
+      return console.warn(`Suppressed following message since slient mode is on: ${message}`);
     toast.error(message, options)
   },
 
   promise(promise, msg) {
+    if (window.Pengu.silentMode) {
+      return console.warn(`Suppressed following message since slient mode is on: ${msg}`);
+    }
     return toast.promise(promise, msg, options);
   },
 };
